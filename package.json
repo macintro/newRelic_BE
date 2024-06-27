@@ -1,0 +1,42 @@
+{
+  "name": "newRelic_BE",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ./src/server.js localhost 3014",
+    "jest": "jest --detectOpenHandles --forceExit --collectCoverage --silent --reporters=default --reporters=jest-junit --coverageReporters=lcov --coverageReporters=clover --coverageReporters=cobertura",
+    "test": "npm run jest",
+    "test:ci": "npm run test -- --watchAll=false",
+    "test-jest": "jest --detectOpenHandles --forceExit --verbose",
+    "coverage": "jest --detectOpenHandles --forceExit --collectCoverage --silent"
+  },
+  "dependencies": {
+    "@elastic/ecs-morgan-format": "^1.1.0",
+    "@elastic/ecs-winston-format": "^1.3.1",
+    "axios": "^1.3.5",
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.7.2",
+    "dotenv": "^16.0.3",
+    "elastic-apm-node": "^3.37.0",
+    "express": "^4.17.2",
+    "express-rate-limit": "^6.2.1",
+    "express-validator": "^6.14.0",
+    "generate-password": "^1.7.0",
+    "joi": "^17.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mime-types": "^2.1.35",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.9.2",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.4"
+  },
+  "devDependencies": {
+    "@jest-mock/express": "^1.4.5",
+    "jest": "^27.4.7",
+    "jest-junit": "^13.0.0",
+    "nodemon": "^2.0.15"
+  }
+}
