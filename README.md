@@ -17,7 +17,7 @@
 ## Installation
 To get started, clone the repository and install the necessary dependencies:
 ```bash
-git clone https://github.com/yourusername/NewRelic_BE.git
+git clone https://github.com/macintro/NewRelic_BE.git
 cd NewRelic_BE
 npm install
 ```
