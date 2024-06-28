@@ -10,7 +10,7 @@ const mysql = require('../utilities/mysqlClient');
 
 
 //Find customer by either firstName or lastName
-  const getCustomerByName = async (req, res) => {
+  const getCompanyByName = async (req, res) => {
 
     const requiredBody = joi
       .object({
@@ -26,9 +26,9 @@ const mysql = require('../utilities/mysqlClient');
     // This also helps a little bit against injection attacks
     const sanitizedSearchTerm = req.query.searchTerm.replace(/[^a-zA-Z]/g, '%') ; 
     try {
-      const customers = await mysql.fetchArray('Customer_GetByFNameOrLName', [sanitizedSearchTerm]);
-      if(customers && customers.length > 0){
-        res.status(200).json(customers);
+      const companies = await mysql.fetchArray('Company_GetCompanyByName', [sanitizedSearchTerm]);
+      if(companies && companies.length > 0){
+        res.status(200).json(companies);
         
       }
       else{
@@ -38,7 +38,7 @@ const mysql = require('../utilities/mysqlClient');
       return;
      
     } catch (err) {
-      logger.error('getCustomerByName() exception: %o', err);
+      logger.error('getCompanyByName() exception: %o', err);
       res.sendStatus(500);
     }
   
@@ -49,6 +49,6 @@ const mysql = require('../utilities/mysqlClient');
 
 
   module.exports = {
-    getCustomerByName
+    getCompanyByName
   };
   

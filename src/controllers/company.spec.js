@@ -1,4 +1,4 @@
-const { getCustomerByName } = require('./customers'); 
+const { getCompanyByName } = require('./company'); 
 const mysql = require('../utilities/mysqlClient');
 const logger = require('../utilities/logger')(module);
 
@@ -7,7 +7,7 @@ jest.mock('../utilities/logger', () => () => ({
     error: jest.fn(),
 }));
 
-describe('getCustomerByName', () => {
+describe('getCompanyByName', () => {
     let req, res;
 
     beforeEach(() => {
@@ -25,11 +25,11 @@ describe('getCustomerByName', () => {
         };
     });
 
-    it('should return 200 and customer data when successful', async () => {
-        const mockData = [{ firstName: 'John', lastName: 'Doe' }];
+    it('should return 200 and company data when successful', async () => {
+        const mockData = [{ companyName: 'Test Company' }];
         mysql.fetchArray.mockResolvedValue(mockData);
 
-        await getCustomerByName(req, res);
+        await getCompanyByName(req, res);
 
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith(mockData);
@@ -38,8 +38,8 @@ describe('getCustomerByName', () => {
 
     it('should return 204 when no data found', async () => {
         mysql.fetchArray.mockResolvedValue([]);
-
-        await getCustomerByName(req, res);
+        req.query.searchTerm = '';
+        await getCompanyByName(req, res);
 
         expect(res.status).toHaveBeenCalledWith(204);
         expect(res.json).toHaveBeenCalledWith("No data");
@@ -48,9 +48,9 @@ describe('getCustomerByName', () => {
 
     it('should return 400 for validation error', async () => {
         req.query.searchTerm = ''; 
-        req.query.search = '';// Example of an invalid searchTerm
+        req.query.search = '';// search would not pass the joi check
 
-        await getCustomerByName(req, res);
+        await getCompanyByName(req, res);
 
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
@@ -61,7 +61,7 @@ describe('getCustomerByName', () => {
     it('should return 500 for server error', async () => {
         mysql.fetchArray.mockRejectedValue(new Error('Server error'));
 
-        await getCustomerByName(req, res);
+        await getCompanyByName(req, res);
 
         expect(res.sendStatus).toHaveBeenCalledWith(500);
     });

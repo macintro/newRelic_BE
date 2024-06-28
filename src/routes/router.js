@@ -11,9 +11,13 @@ const apiKeyCheck = require('../middleware/key_check');
 
 // Controllers
 const customers = require('../controllers/customers');
+const company = require('../controllers/company');
 
-
+//Customers
 router.get(  '/customers/getCustomerInfo'                           , [apiKeyCheck                ,customers.getCustomerByName]);
+
+//Company
+router.get(  '/customers/getCompanyByName'                           , [apiKeyCheck                ,company.getCompanyByName]);
 
 
 module.exports = router;
