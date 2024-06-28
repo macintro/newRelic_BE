@@ -26,6 +26,10 @@ const mysql = require('../utilities/mysqlClient');
     // This also helps a little bit against injection attacks
     const sanitizedSearchTerm = req.query.searchTerm.replace(/[^a-zA-Z]/g, '%') ; 
     try {
+        //i call the stored procedure Company_GetCompanyByName to get data rather than having the sql
+        //in the code. My guiding principle here is that Databases are very good at finding and storing
+        //data and are optimized for that purpose. So I shift the responsability of data management 
+        //to the database engine. 
       const companies = await mysql.fetchArray('Company_GetCompanyByName', [sanitizedSearchTerm]);
       if(companies && companies.length > 0){
         res.status(200).json(companies);
